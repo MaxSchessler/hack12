@@ -1,3 +1,11 @@
+/**
+ * Author Max Schessler
+ * Date: 2024-11-19
+ * 
+ * This file holds functions for recursive callculation of the choose function.
+ * Also holds main method in which it tests my recursive functions and benchmarks them.
+ */
+
 package unl.soc;
 
 import java.math.BigInteger;
@@ -51,6 +59,7 @@ public class Binomial {
         System.out.printf("Number of objects: %d\n", memoizationTable.values().size());
 
     }
+    
 
     public static BigInteger choose(int n, int k) {
         // base
