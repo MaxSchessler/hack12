@@ -1,3 +1,10 @@
+/**
+ * Author: Max Schessler
+ * Date: 2024-11-19
+ * 
+ * This file holds method testing/benchmarking for my binomial recursive functions.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -27,13 +34,13 @@ int main(int argc, char *argv[]) {
     double execution_time;
 
 
-    /*** Benchmark the regular recursive function call and output results */
-    start = clock();  // start time
-    result = choose(n, k);  // call function
-    end = clock(); // get end time
-    execution_time = ((double) (end - start)) / CLOCKS_PER_SEC * 1000; // calculate time in milliseconds
-    printf("Result (Regular):  %ld\nTime: %f milliseconds\n", result, execution_time);
-    /*** Benchmark the regular recursive function call and output results */
+    // /*** Benchmark the regular recursive function call and output results */
+    // start = clock();  // start time
+    // result = choose(n, k);  // call function
+    // end = clock(); // get end time
+    // execution_time = ((double) (end - start)) / CLOCKS_PER_SEC * 1000; // calculate time in milliseconds
+    // printf("Result (Regular):  %ld\nTime: %f milliseconds\n", result, execution_time);
+    // /*** Benchmark the regular recursive function call and output results */
 
     /*** Benchmark the memoization recursive function call and output results */   
     initialize_table(n, k); 
@@ -44,7 +51,7 @@ int main(int argc, char *argv[]) {
     execution_time = ((double) (end - start)) / CLOCKS_PER_SEC * 1000; // calclulate time in milliseconds
     printf("Result (Memoization): %ld\nTime: %f milliseconds\n", result, execution_time);
 
-    freeTable(n, k);
+    freeTable(n);
     /*** Benchmark the memoization recursive function call and output results */    
     
 

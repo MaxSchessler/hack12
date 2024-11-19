@@ -1,3 +1,10 @@
+/**
+ * Author: Max Schessler
+ * Date: 2024-11-19
+ * 
+ * This file holds method definitions for my binomial recursive functions.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "binomial.h"
@@ -39,7 +46,7 @@ void initialize_table(int n, int k) {
 }
 
 
-void freeTable(int n, int k) {
+void freeTable(int n) {
     n++;
     for (int i = 0; i<n; i++) {
         free(table[i]);
