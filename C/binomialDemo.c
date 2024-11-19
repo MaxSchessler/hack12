@@ -27,21 +27,27 @@ int main(int argc, char *argv[]) {
     double execution_time;
 
 
-    // /*** Benchmark the regular recursive function call and output results */
-    // start = clock();  // start time
-    // result = choose(n, k);  // call function
-    // end = clock(); // get end time
-    // time = ((double) (end - start)) / CLOCKS_PER_SEC * 1000; // calculate time in milliseconds
-    // printf("Result (Regular):  %ld\nTime: %.2f milliseconds\n", result, execution_time);
-    // /*** Benchmark the regular recursive function call and output results */
+    /*** Benchmark the regular recursive function call and output results */
+    start = clock();  // start time
+    result = choose(n, k);  // call function
+    end = clock(); // get end time
+    execution_time = ((double) (end - start)) / CLOCKS_PER_SEC * 1000; // calculate time in milliseconds
+    printf("Result (Regular):  %ld\nTime: %f milliseconds\n", result, execution_time);
+    /*** Benchmark the regular recursive function call and output results */
 
-    /*** benchmark the recursive function that utilizes memoization *** */
+    /*** Benchmark the memoization recursive function call and output results */   
+    initialize_table(n, k); 
+
     start = clock();
     result = choose_memoization(n, k);
     end = clock();
-    execution_time = ((double) (end - start)) / CLOCKS_PER_SEC * 1000;
-    printf("Result (Memoization):  %ld\nTime: %.2f milliseconds\n", result, execution_time);
-    /*** benchmark the recursive function that utilizes memoization *** */
+    execution_time = ((double) (end - start)) / CLOCKS_PER_SEC * 1000; // calclulate time in milliseconds
+    printf("Result (Memoization): %ld\nTime: %f milliseconds\n", result, execution_time);
+
+    freeTable(n, k);
+    /*** Benchmark the memoization recursive function call and output results */    
+    
+
 
     return 0;
 }

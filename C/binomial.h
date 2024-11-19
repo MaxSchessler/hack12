@@ -12,4 +12,6 @@ long choose(int n, int k);
 
 long choose_memoization(int n, int k);
 
-long inner_memoization(int n, int k, long **table);
+void initialize_table(int n, int k);
+
+void freeTable(int n, int k);

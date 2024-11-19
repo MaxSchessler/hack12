@@ -12,63 +12,51 @@ long choose(int n, int k) {
     return choose(n-1, k) + choose(n-1, k-1);
 }
 
-long **table;
+long **table = NULL;
 
-long choose_memoization_inner_function(int n, int k) {
-    if (k == 0 || n == k) {
-        return 1;
-    }
 
-    return choose_memoization_inner_function(n-1, k) + choose_memoization_inner_function(n-1, k-1);
-}
 
-long choose_memoization(int n, int k) {
-
-    if (k == 0 || n == k) {
-        return 1;
-    }
-
-    // create the memoization table of (n + 1) x (k + 1)
-    table = (long ** ) malloc(sizeof(long *) * (n+1));
+void initialize_table(int n, int k) {
+    n++;
+    k++;
+    table = (long **) malloc(sizeof(long *) * n);
     if (table == NULL) {
-        printf("ERROR\n");
-        return 1;
+        printf("ERROR allocating memory for table\n");
+        exit(1);
     }
-    // init rows
-    for (int i = 0; i<n+1; i++) {
-        table[i] = (long *) malloc(sizeof(long) * (k + 1));
-        // check if alloc failed: free all alloced rows and table
+
+    for (int i = 0; i<n; i++) {
+        table[i] = (long *) calloc(k, sizeof(long));
         if (table[i] == NULL) {
-            for (int x = 0; x<i; x++) {
+            for (int x=0; x<i; x++) {
                 free(table[x]);
             }
             free(table);
-            printf("ERROR\n");
-            return 1;
-        }
-        // init rows with -1
-        for (int j = 0; j<k+1; j++) {
-            table[i][j] = -1;
+            printf("ERROR allocating memory for row %d in table.\n", i);
+            exit(1);
         }
     }
+}
 
-    // we first access the table to see if the value is calculated already
-    long calculated_value = table[n][k];
-    if (calculated_value != -1) {
-        return calculated_value; // the value is calcualted and can be returned
+
+void freeTable(int n, int k) {
+    n++;
+    for (int i = 0; i<n; i++) {
+        free(table[i]);
+    }
+
+    free(table);
+}
+
+long choose_memoization(int n, int k) {
+    // base
+    if (k == 0 || n == k) {
+        return 1;
+    } else if (table[n][k] != 0) {
+        return table[n][k];
     } else {
-        // calculate, store in table, return value
-        long result = choose_memoization_inner_function(n, k);
+        long result = choose_memoization(n-1, k) + choose_memoization(n-1, k-1);
         table[n][k] = result;
         return result;
     }
-
-    // free the table
-    for (int i = 0; i<n+1; i++) {
-        free(table[i]);
-    }
-    free(table);
-
-    return 0;
 }
-
