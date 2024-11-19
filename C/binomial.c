@@ -46,13 +46,22 @@ void initialize_table(int n, int k) {
 }
 
 
-void freeTable(int n) {
-    n++;
-    for (int i = 0; i<n; i++) {
-        free(table[i]);
-    }
+void freeTable(int n, int k) {
 
+    int count = 0;
+
+    // count how many items are in this table that aren't 0
+    for (int i =0; i<n+1; i++) {
+        for (int j=0; j<k+1; j++) {
+            if (table[i][j] == 0){
+                count ++;
+            }
+        } 
+
+        free(table[i]);
+    }   
     free(table);
+    printf("Numbers in the cache: %d\n", count);
 }
 
 long choose_memoization(int n, int k) {

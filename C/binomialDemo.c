@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
     execution_time = ((double) (end - start)) / CLOCKS_PER_SEC * 1000; // calclulate time in milliseconds
     printf("Result (Memoization): %ld\nTime: %f milliseconds\n", result, execution_time);
 
-    freeTable(n);
+    freeTable(n, k);
     /*** Benchmark the memoization recursive function call and output results */    
     
 

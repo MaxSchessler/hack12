@@ -42,4 +42,4 @@ void initialize_table(int n, int k);
  *
  * @param n The total number of items.
  */
-void freeTable(int n);
+void freeTable(int n, int k);
