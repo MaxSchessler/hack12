@@ -22,15 +22,18 @@ public class Binomial {
             System.exit(1);
         }
 
+        try {
+            Integer.parseInt( args[0] );
+            Integer.parseInt( args[1] );
+        } catch( Exception e ) {
+            System.out.println("ERROR: n and k must be integers.");
+            System.exit(1);
+        }
+    
         int n = Integer.parseInt(args[0]);
         int k = Integer.parseInt(args[1]);
 
-        if (n == 0 || k == 0) {
-            System.out.printf("%s or %s not valid\n", args[0], args[1]);
-            System.exit(1);
-        }
-
-        if (k > n) {
+        if (k > n || k < 0) {
             System.out.printf("Invalid Input k cannot be greater than n.\n");
             System.exit(1);
         }
@@ -40,7 +43,7 @@ public class Binomial {
 
         // /***** testing Chooose function without memoization **** */
         // start = System.currentTimeMillis();
-        // result = choose(n, k);
+        // result = binomial(n, k);
         // end = System.currentTimeMillis();
         // System.out.printf("Result (regular): %s\nTime: %.2f\n", result.toString(),
         // (end-start)/1000.0);
@@ -51,26 +54,24 @@ public class Binomial {
 
         /***** testing Chooose function with memoization **** */
         start = System.currentTimeMillis();
-        result = chooseWithMemoization(n, k);
+        result = binomial(n, k);
         end = System.currentTimeMillis();
         System.out.printf("Result (regular): %s\nTime: %.2f\n", result.toString(), (end - start) / 1000.0);
         /***** testing Chooose function with memoization **** */
 
-        System.out.printf("Number of objects: %d\n", memoizationTable.values().size());
-
     }
     
 
-    public static BigInteger choose(int n, int k) {
-        // base
-        if (k == 0 || n == k) {
-            return BigInteger.ONE;
-        }
-        // recursive call
-        return choose(n - 1, k).add(choose(n - 1, k - 1));
-    }
+    // public static BigInteger binomial(int n, int k) {
+    //     // base
+    //     if (k == 0 || n == k) {
+    //         return BigInteger.ONE;
+    //     }
+    //     // recursive call
+    //     return binomial(n - 1, k).add(binomial(n - 1, k - 1));
+    // }
 
-    public static BigInteger chooseWithMemoization(int n, int k) {
+    public static BigInteger binomial(int n, int k) {
         // base
         if (k == 0 || n == k) {
             return BigInteger.ONE;
@@ -80,8 +81,7 @@ public class Binomial {
             return memoizationTable.get(pair);
         } else {
             // recursive call
-            BigInteger result = chooseWithMemoization(n - 1, k)
-            .add(chooseWithMemoization(n - 1, k - 1));
+            BigInteger result = binomial(n - 1, k).add(binomial(n - 1, k - 1));
             memoizationTable.put(pair, result);
             return result;
         }
