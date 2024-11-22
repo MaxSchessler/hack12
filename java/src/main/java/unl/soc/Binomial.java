@@ -72,6 +72,10 @@ public class Binomial {
     //     return binomial(n - 1, k).add(binomial(n - 1, k - 1));
     // }
 
+    /**
+     * This method calculates the binomial of n and k using memoization to store
+     * previous results.
+     */
     public static BigInteger binomial(int n, int k) {
         // base
         if (k > n || k < 0) {
