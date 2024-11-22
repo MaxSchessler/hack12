@@ -10,11 +10,14 @@ package unl.soc;
 
 import java.math.BigInteger;
 import java.util.Map;
+
+
 import java.util.HashMap;
+
 
 public class Binomial {
 
-    public static Map<Pair<Integer, Integer>, BigInteger> memoizationTable;
+    public static Map<Pair<Integer, Integer>, BigInteger> memoizationTable = new HashMap<>();
 
     public static void main(String[] args) {
         if (args.length != 2) {
@@ -48,9 +51,7 @@ public class Binomial {
         // System.out.printf("Result (regular): %s\nTime: %.2f\n", result.toString(),
         // (end-start)/1000.0);
         // /***** testing Chooose function without memoization **** */
-
-        // init the map and use it in the function
-        memoizationTable = new HashMap<>();
+        
 
         /***** testing Chooose function with memoization **** */
         start = System.currentTimeMillis();
@@ -73,6 +74,10 @@ public class Binomial {
 
     public static BigInteger binomial(int n, int k) {
         // base
+        if (k > n || k < 0) {
+            throw new IllegalArgumentException("Invalid Input k cannot be greater than n.");
+        }
+
         if (k == 0 || n == k) {
             return BigInteger.ONE;
         }
